@@ -1,16 +1,40 @@
 const express = require('express');
-const app = express()
-const dbConnect = require('./src/db/dbConnect')
-const authRoutes = require('./src/routes/auth')
-const authMiddleware = require('./src/middleware/authMiddleware')
+const dotenv = require('dotenv');
+const dbConnect = require('./src/db/dbConnect');
 
-app.use(express.json())
-app.use('/api/auth', authRoutes)
-app.use(authMiddleware)
-dbConnect()
+dotenv.config();
 
-const port = 5000 
+const app = express();
+
+app.use(express.json());
+
+
+dbConnect().catch(err => {
+    console.error("Failed to connect to MongoDB", err);
+    process.exit(1);
+});
+
+
+const userRoutes = require('./src/routes/userRoutes');
+const mealRoutes = require('./src/routes/mealRoutes');
+const nutritionRoutes = require('./src/routes/nutritionRoutes');
+
+app.use('/api/users', userRoutes);
+app.use('/api/meals', mealRoutes);
+app.use('/api/nutrition', nutritionRoutes);
+
+
+app.use((req, res) => {
+    res.status(404).json({ message: 'Resource not found' });
+});
+
+
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).json({ message: 'Something went wrong!' });
+});
+
+const port = process.env.PORT || 5000;
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
-    
-})
+});
