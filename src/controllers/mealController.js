@@ -1,5 +1,5 @@
 const Meal = require('../models/mealModel')
-const Nutririon = require('../models/nutritionModel')
+const Nutrition = require('../models/nutritionModel')
 
 exports.createMeal = async (req, res) => {
     try {
