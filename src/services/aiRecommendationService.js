@@ -25,6 +25,7 @@ class AIRecommendationService {
         return dailyMeals
     }
 
+    
     async recommendMeal(user, mealType){
         const userConditions = user.healthConditions
         const userAllergies = user.allergies;
@@ -35,7 +36,6 @@ class AIRecommendationService {
         })
 
 
-    // Simple recommendation logic (can be enhanced with machine learning)
         const recommendation = this.balanceMeal(suitableFoods, mealType)
 
         return new Meal({
@@ -43,7 +43,7 @@ class AIRecommendationService {
 
             name: `${mealType} for ${user.username}`,
 
-            ingredients: recommendation.map(dood => getFoodDetails._id),
+            ingredients: recommendation.map(food => food._id),
 
             totalColaries: recommendation.reduce((sum, food) => sum + food.colaries, 0),
 
