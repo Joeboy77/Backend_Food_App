@@ -17,6 +17,11 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.7.0",
     "nodemon": "^3.1.7",
-    "passport": "^0.7.0"
+    "passport": "^0.7.0",
+    "winston": "^3.15.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "supertest": "^7.0.0"
   }
 }
