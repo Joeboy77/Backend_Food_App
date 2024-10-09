@@ -2,7 +2,7 @@ const express = require('express');
 const app = express()
 const dbConnect = require('./src/db/dbConnect')
 const authRoutes = require('./src/routes/auth')
-const authMiddleware = require('./src/middleware/auth')
+const authMiddleware = require('./src/middleware/authMiddleware')
 
 app.use(express.json())
 app.use('/api/auth', authRoutes)
